@@ -186,7 +186,59 @@ link.click();
 
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const questions = [
+  "In real life they are 😈",
+  "Biggest red flag 🚩",
+  "Secret nobody knows 🤫",
+  "One thing I never told you 👀",
+  "Most toxic habit 💀",
+  "Biggest lie they tell 😬",
+  "Crush they won’t admit ❤️",
+  "Most embarrassing moment 🤡",
+  "Their fake personality 🤥",
+  "One thing they regret 😔",
+  "Most savage thing they did 🔥",
+  "Their hidden talent 🎭",
+  "What they hate about themselves 😶",
+  "Who they stalk secretly 👁️",
+  "One truth that hurts 😈"
+];
+
+function generateCard() {
+  const name = document.getElementById("friendName").value || "Someone";
+  const inputs = document.querySelectorAll(".q-input");
+
+  let answersHTML = "";
+  inputs.forEach((input, i) => {
+    if (input.value.trim() !== "") {
+      answersHTML += `<p>• <b>${questions[i]}</b><br>${input.value}</p>`;
+    }
+  });
+
+  document.getElementById("cardTitle").innerText = `Slam for ${name}`;
+  document.getElementById("answers").innerHTML = answersHTML;
+
+  document.getElementById("resultModal").style.display = "flex";
+
+  const sound = document.getElementById("submitSound");
+  if (sound) sound.play();
+}
+
+function closeModal() {
+  document.getElementById("resultModal").style.display = "none";
+  location.reload();
+}
+
+function downloadCard() {
+  html2canvas(document.querySelector(".storyCard")).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "SlamBloom.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
 
 </body>
 </html>
