@@ -1,34 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SlamBloom</title>
+  <title>SlamBloom | Expose Edition</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="formSection">
+<div class="mainCard">
 
   <h1>🌸 SlamBloom</h1>
   <h2>Expose Your Friend 😈</h2>
 
   <form id="slamForm">
 
-    <input type="text" id="target" placeholder="This slam is for..." required>
+    <!-- TARGET -->
+    <input type="text" id="q1" placeholder="1️⃣ This slam is for..." required>
+    <input type="text" id="q2" placeholder="2️⃣ Their Instagram ID">
+    <input type="text" id="q3" placeholder="3️⃣ Your Name (or stay anonymous 😏)">
 
-    <select id="personality" required>
-      <option value="">In real life they are...</option>
+    <!-- EXPOSE MODE -->
+    <select id="q4">
+      <option value="">4️⃣ In real life they are...</option>
       <option>Main Character 🎬</option>
       <option>Drama Machine 🎭</option>
       <option>Certified Clown 🤡</option>
       <option>Secret Romantic 💕</option>
+      <option>Attention Seeker 👀</option>
       <option>Overthinker Pro 🤯</option>
     </select>
 
-    <input type="text" id="redflag" placeholder="Biggest Red Flag 🚩">
+    <select id="q5">
+      <option value="">5️⃣ Hidden Superpower...</option>
+      <option>FBI Stalker 🔍</option>
+      <option>Reply after 5 business days 🕒</option>
+      <option>Fake anger 😤</option>
+      <option>Flirting without knowing 😅</option>
+      <option>Acting innocent 😇</option>
+    </select>
 
-    <textarea id="confession" placeholder="One thing I never told you 👀"></textarea>
+    <input type="text" id="q6" placeholder="6️⃣ Biggest Green Flag 💚">
+    <input type="text" id="q7" placeholder="7️⃣ Biggest Red Flag 🚩">
+    <input type="text" id="q8" placeholder="8️⃣ Most annoying habit 😤">
 
-    <input type="text" id="yourname" placeholder="Your Name (optional)">
+    <!-- CONFESSION -->
+    <textarea id="q9" placeholder="9️⃣ One thing I never told you 👀"></textarea>
+
+    <select id="q10">
+      <option value="">🔟 If we were in a movie...</option>
+      <option>Chaos Duo 🔥</option>
+      <option>Enemies to Lovers 😏</option>
+      <option>Bestie Goals 👯</option>
+      <option>One-sided Lover 💔</option>
+      <option>Power Couple 😎</option>
+    </select>
+
+    <input type="text" id="q11" placeholder="1️⃣1️⃣ Who falls first? 😏">
+    <input type="text" id="q12" placeholder="1️⃣2️⃣ Who is more toxic? ☠️">
+    <input type="text" id="q13" placeholder="1️⃣3️⃣ Secret crush reveal 😳">
+    <input type="text" id="q14" placeholder="1️⃣4️⃣ Rate them out of 10 ⭐">
+    <input type="text" id="q15" placeholder="1️⃣5️⃣ Final message 💌">
 
     <button type="submit">🔥 Expose Now</button>
 
@@ -36,28 +66,16 @@
 
 </div>
 
-<!-- STORY RESULT -->
+<!-- STORY CARD -->
 <div id="storySection" class="hidden">
-
-  <div id="captureArea" class="card theme-dark">
+  <div class="storyCard" id="captureArea">
     <h1>🌸 SlamBloom</h1>
-    <h2 id="rName"></h2>
-    <p id="rPersonality"></p>
-    <p id="rRed"></p>
-    <p id="rConfession"></p>
-    <p id="rBy"></p>
+    <div id="resultContent"></div>
   </div>
 
   <button onclick="downloadImage()">📥 Download</button>
-  <button onclick="shareStory()">📲 Share</button>
-  <button onclick="changeTheme()">🎨 Theme</button>
   <button onclick="resetForm()">Make Another 😈</button>
-
 </div>
-
-<audio id="bgMusic" loop>
-  <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mp3">
-</audio>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="script.js"></script>
