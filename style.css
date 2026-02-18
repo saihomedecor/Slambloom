@@ -1,57 +1,84 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #1e1e2f, #3a0ca3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  background: linear-gradient(135deg, #240046, #5a189a);
   color: white;
-}
-
-.container {
-  background: #111122;
-  padding: 25px;
-  border-radius: 20px;
-  width: 350px;
-  box-shadow: 0 0 25px #ff4f81;
   text-align: center;
 }
 
-h1 {
-  color: #ff4f81;
+.container {
+  padding: 20px;
 }
 
 input, select, textarea {
-  width: 100%;
-  margin: 8px 0;
+  width: 90%;
   padding: 10px;
+  margin: 8px;
   border-radius: 10px;
   border: none;
-  outline: none;
 }
 
 button {
-  background: #ff4f81;
+  background: #ff006e;
   color: white;
   border: none;
-  padding: 10px;
+  padding: 10px 15px;
   border-radius: 20px;
+  margin: 10px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
 button:hover {
-  background: #ff1e63;
+  background: #ff4d8d;
 }
 
 .hidden {
   display: none;
 }
 
-#resultCard {
-  background: linear-gradient(135deg, #ff4f81, #7209b7);
+/* 9:16 Story Layout */
+#storyCard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardContent {
+  width: 360px;
+  height: 640px;
+  background: linear-gradient(180deg, #ff006e, #7209b7);
+  border-radius: 25px;
   padding: 20px;
-  border-radius: 15px;
-  margin-top: 15px;
+  box-shadow: 0 0 30px #ff006e;
+  animation: reveal 0.8s ease-out forwards;
+}
+
+@keyframes reveal {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+/* THEMES */
+
+.theme-dark {
+  background: linear-gradient(135deg, #240046, #5a189a);
+}
+
+.theme-neon {
+  background: linear-gradient(135deg, #00f5d4, #ff006e);
+}
+
+.theme-pastel {
+  background: linear-gradient(135deg, #ffc8dd, #cdb4db);
+  color: black;
+}
+
+.controls {
+  margin-top: 10px;
 }
