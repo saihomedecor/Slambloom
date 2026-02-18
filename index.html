@@ -30,7 +30,6 @@ body {
   color: #000;
 }
 
-/* MAIN PAGE */
 .container {
   padding: 20px;
   text-align: center;
@@ -106,12 +105,16 @@ button {
 
   <input type="text" id="name" placeholder="This slam is for...">
   <input type="text" id="real" placeholder="In real life they are...">
+  <input type="text" id="dangerous" placeholder="Dangerous 😈">
   <input type="text" id="red" placeholder="Biggest Red Flag 🚩">
   <input type="text" id="secret" placeholder="Secret nobody knows 🤫">
   <input type="text" id="embarrass" placeholder="Embarrassing moment 😂">
   <input type="text" id="crush" placeholder="Crush they hide 👀">
   <input type="text" id="toxic" placeholder="Toxic trait ☠">
   <input type="text" id="green" placeholder="Green flag 🌿">
+  <input type="text" id="talent" placeholder="Hidden talent 🎭">
+  <input type="text" id="dramatic" placeholder="Most dramatic scene 🎬">
+  <input type="text" id="fake" placeholder="Fake personality 🤔">
 
   <button class="submit-btn" onclick="generateCard()">Generate Slam</button>
 </div>
@@ -137,23 +140,31 @@ function generateCard() {
 
   let name = document.getElementById("name").value;
   let real = document.getElementById("real").value;
+  let dangerous = document.getElementById("dangerous").value;
   let red = document.getElementById("red").value;
   let secret = document.getElementById("secret").value;
   let embarrass = document.getElementById("embarrass").value;
   let crush = document.getElementById("crush").value;
   let toxic = document.getElementById("toxic").value;
   let green = document.getElementById("green").value;
+  let talent = document.getElementById("talent").value;
+  let dramatic = document.getElementById("dramatic").value;
+  let fake = document.getElementById("fake").value;
 
   document.getElementById("cardTitle").innerHTML = "Slam for " + name;
 
   document.getElementById("cardContent").innerHTML = `
   <b>In real life:</b> ${real} <br><br>
+  <b>Dangerous:</b> ${dangerous} <br><br>
   <b>Biggest Red Flag:</b> ${red} <br><br>
   <b>Secret nobody knows:</b> ${secret} <br><br>
   <b>Embarrassing moment:</b> ${embarrass} <br><br>
   <b>Crush they hide:</b> ${crush} <br><br>
   <b>Toxic trait:</b> ${toxic} <br><br>
-  <b>Green flag:</b> ${green}
+  <b>Green flag:</b> ${green} <br><br>
+  <b>Hidden talent:</b> ${talent} <br><br>
+  <b>Most dramatic scene:</b> ${dramatic} <br><br>
+  <b>Fake personality:</b> ${fake}
   `;
 
   document.getElementById("mainPage").style.display = "none";
