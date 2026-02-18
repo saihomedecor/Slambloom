@@ -6,6 +6,11 @@
 </head>
 <body>
 
+<audio id="bgMusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+</audio>
+
+
 <div class="container">
 
   <h1>🌸 SlamBloom</h1>
@@ -14,35 +19,43 @@
   <form id="slamForm">
 
     <input type="text" id="target" placeholder="This slam is for..." required>
+    <input type="text" id="yourname" placeholder="Your Name (optional)">
 
-    <select id="personality">
+    <select id="personality" required>
       <option value="">In real life they are...</option>
       <option>Main Character 🎬</option>
       <option>Drama Machine 🎭</option>
       <option>Certified Clown 🤡</option>
       <option>Secret Romantic 💕</option>
-      <option>Attention Seeker 👀</option>
+      <option>Overthinker Pro 🤯</option>
     </select>
 
     <input type="text" id="redflag" placeholder="Biggest Red Flag 🚩">
-
     <textarea id="confession" placeholder="One thing I never told you 👀"></textarea>
 
     <button type="submit">🔥 Expose Now</button>
 
   </form>
 
-  <div id="resultCard" class="hidden">
-    <h2 id="resultName"></h2>
-    <p id="resultPersonality"></p>
-    <p id="resultRedflag"></p>
-    <p id="resultConfession"></p>
-
-    <button onclick="resetForm()">Make Another 😈</button>
-  </div>
-
 </div>
 
+<!-- 9:16 Story Card -->
+<div id="storyCard" class="hidden">
+  <div class="cardContent" id="captureArea">
+    <h1>🌸 SlamBloom</h1>
+    <h2 id="rName"></h2>
+    <p id="rPersonality"></p>
+    <p id="rRed"></p>
+    <p id="rConfession"></p>
+    <p id="rBy"></p>
+  </div>
+
+  <button onclick="downloadImage()">📥 Download Story</button>
+  <button onclick="resetForm()">Make Another 😈</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
