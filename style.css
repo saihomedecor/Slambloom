@@ -1,18 +1,20 @@
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #f9c5d1, #d6c1ff);
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #3a0ca3);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  color: white;
 }
 
 .container {
-  background: white;
+  background: #111122;
   padding: 25px;
   border-radius: 20px;
   width: 350px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 0 25px #ff4f81;
   text-align: center;
 }
 
@@ -23,9 +25,10 @@ h1 {
 input, select, textarea {
   width: 100%;
   margin: 8px 0;
-  padding: 8px;
+  padding: 10px;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  border: none;
+  outline: none;
 }
 
 button {
@@ -39,9 +42,16 @@ button {
 }
 
 button:hover {
-  background: #e8436f;
+  background: #ff1e63;
 }
 
 .hidden {
   display: none;
+}
+
+#resultCard {
+  background: linear-gradient(135deg, #ff4f81, #7209b7);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 15px;
 }
