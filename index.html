@@ -9,22 +9,22 @@
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
-background:#0f0f0f;
+background:#111;
 color:white;
 text-align:center;
 }
 
 .container{
-padding:20px;
 max-width:500px;
 margin:auto;
+padding:20px;
 }
 
 input,textarea,select{
 width:100%;
 padding:12px;
 margin:8px 0;
-border-radius:10px;
+border-radius:12px;
 border:none;
 font-size:14px;
 }
@@ -36,90 +36,11 @@ border-radius:25px;
 background:#ff2e88;
 color:white;
 font-weight:600;
-margin:10px;
+margin-top:15px;
 cursor:pointer;
 }
 
-.storyCard{
-width:300px;
-height:533px;
-margin:20px auto;
-border-radius:25px;
-padding:20px;
-box-sizing:border-box;
-background:linear-gradient(180deg,#ff2e88,#7b2ff7);
-display:none;
-overflow:hidden;
-animation:fadeIn 0.6s ease;
-}
-
-@keyframes fadeIn{
-from{opacity:0;transform:scale(0.9)}
-to{opacity:1;transform:scale(1)}
-}
-
-.answer{
-font-size:12px;
-text-align:left;
-margin:6px 0;
-}
-
-.theme1{
-background:linear-gradient(180deg,#ff2e88,#7b2ff7);
-}
-
-.theme2{
-background:linear-gradient(180deg,#00c6ff,#0072ff);
-}
-
-.theme3{
-background:linear-gradient(180deg,#f7971e,#ffd200);
-color:black;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-<h2>🌸 SlamBloom – Expose Your Friend 😈</h2>
-
-<input id="forWho" placeholder="This slam is for...">
-
-<select id="realLife">
-<option>In real life they are...</option>
-<option>Innocent 😇</option>
-<option>Dangerous 😈</option>
-<option>Drama Queen 👑</option>
-<option>Silent but savage 🔥</option>
-</select>
-
-<textarea id="q1" placeholder="Biggest Red Flag 🚩"></textarea>
-<textarea id="q2" placeholder="Secret I know about them 🤫"></textarea>
-<textarea id="q3" placeholder="Most embarrassing moment 😂"></textarea>
-<textarea id="q4" placeholder="One thing I never told you 💔"></textarea>
-<textarea id="q5" placeholder="Crush reveal 👀"></textarea>
-<textarea id="q6" placeholder="Most toxic trait ☠️"></textarea>
-<textarea id="q7" placeholder="Green flag 🌿"></textarea>
-<textarea id="q8" placeholder="If they were a meme 🤡"></textarea>
-<textarea id="q9" placeholder="Late night habit 🌙"></textarea>
-<textarea id="q10" placeholder="Hidden talent 🎭"></textarea>
-<textarea id="q11" placeholder="Worst fashion moment 👗"></textarea>
-<textarea id="q12" placeholder="Best quality ❤️"></textarea>
-<textarea id="q13" placeholder="Most dramatic scene 🎬"></textarea>
-<textarea id="q14" placeholder="Nickname I secretly use 🫢"></textarea>
-<textarea id="q15" placeholder="Final confession 💌"></textarea>
-
-<select id="themeSelect">
-<option value="theme1">Pink Drama</option>
-<option value="theme2">Blue Savage</option>
-<option value="theme3">Golden Roast</option>
-</select>
-
-<button onclick="generateCard()">🔥 Expose Now</button>
-</div>
-
-<div id="resultModal" style="
+#resultModal{
 display:none;
 position:fixed;
 top:0;
@@ -130,114 +51,127 @@ background:black;
 justify-content:center;
 align-items:center;
 z-index:999;
-">
+}
 
-<div id="storyCard" class="storyCard">
+.storyCard{
+width:300px;
+height:533px;
+border-radius:25px;
+padding:20px;
+box-sizing:border-box;
+overflow:hidden;
+background:linear-gradient(180deg,#ff2e88,#7b2ff7);
+animation:fade 0.5s ease;
+}
+
+@keyframes fade{
+from{opacity:0;transform:scale(0.8)}
+to{opacity:1;transform:scale(1)}
+}
+
+.answer{
+font-size:12px;
+text-align:left;
+margin:6px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>🌸 SlamBloom – Expose Your Friend 😈</h2>
+
+<input id="friendName" placeholder="This slam is for...">
+
+<select id="realType">
+<option>In real life they are...</option>
+<option>Innocent 😇</option>
+<option>Dangerous 😈</option>
+<option>Drama Queen 👑</option>
+<option>Savage 🔥</option>
+</select>
+
+<div id="questions"></div>
+
+<button onclick="generateCard()">🔥 Expose Now</button>
+</div>
+
+<div id="resultModal">
+<div class="storyCard" id="storyCard">
 <h3 id="cardTitle"></h3>
 <div id="answers"></div>
 <button onclick="downloadCard()">📥 Download</button>
 <button onclick="closeModal()">Make Another 😈</button>
 </div>
-
 </div>
 
-<audio id="bgMusic" loop>
-<source src="https://www.soundjay.com/button/beep-07.wav">
-</audio>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
+
+const questionList = [
+"Biggest Red Flag 🚩",
+"Secret nobody knows 🤫",
+"Embarrassing moment 😂",
+"Crush they hide 👀",
+"Toxic trait ☠️",
+"Green flag 🌿",
+"Hidden talent 🎭",
+"Most dramatic scene 🎬",
+"Fake personality 🤥",
+"Biggest lie 😬",
+"Late night habit 🌙",
+"Worst fashion 👗",
+"Best quality ❤️",
+"Secret nickname 🫢",
+"Final confession 💌"
+];
+
+const qContainer = document.getElementById("questions");
+
+questionList.forEach((q,i)=>{
+let area = document.createElement("textarea");
+area.placeholder = q;
+area.className = "q-input";
+area.id = "q"+i;
+qContainer.appendChild(area);
+});
 
 function generateCard(){
 
-document.getElementById("bgMusic").play();
+const name = document.getElementById("friendName").value || "Someone";
+const type = document.getElementById("realType").value;
 
-let card=document.getElementById("storyCard");
-card.style.display="block";
+let answerHTML = `<div class="answer"><b>${type}</b></div>`;
 
-let theme=document.getElementById("themeSelect").value;
-card.className="storyCard "+theme;
-
-document.getElementById("cardTitle").innerText=
-"Slam for "+document.getElementById("forWho").value;
-
-let answersDiv=document.getElementById("answers");
-answersDiv.innerHTML="";
-
-for(let i=1;i<=15;i++){
-let val=document.getElementById("q"+i).value;
-if(val.trim()!=""){
-answersDiv.innerHTML+=
-"<div class='answer'>• "+val+"</div>";
+questionList.forEach((q,i)=>{
+let val = document.getElementById("q"+i).value;
+if(val.trim() !== ""){
+answerHTML += `<div class="answer"><b>${q}</b><br>${val}</div>`;
 }
+});
+
+document.getElementById("cardTitle").innerText = "Slam for "+name;
+document.getElementById("answers").innerHTML = answerHTML;
+
+document.getElementById("resultModal").style.display = "flex";
 }
 
+function closeModal(){
+document.getElementById("resultModal").style.display = "none";
+location.reload();
 }
 
 function downloadCard(){
-
 html2canvas(document.getElementById("storyCard")).then(canvas=>{
 let link=document.createElement("a");
-link.download="slambloom.png";
+link.download="SlamBloom.png";
 link.href=canvas.toDataURL();
 link.click();
 });
-
 }
 
-</script>
-
-<script>
-const questions = [
-  "In real life they are 😈",
-  "Biggest red flag 🚩",
-  "Secret nobody knows 🤫",
-  "One thing I never told you 👀",
-  "Most toxic habit 💀",
-  "Biggest lie they tell 😬",
-  "Crush they won’t admit ❤️",
-  "Most embarrassing moment 🤡",
-  "Their fake personality 🤥",
-  "One thing they regret 😔",
-  "Most savage thing they did 🔥",
-  "Their hidden talent 🎭",
-  "What they hate about themselves 😶",
-  "Who they stalk secretly 👁️",
-  "One truth that hurts 😈"
-];
-
-function generateCard() {
-  const name = document.getElementById("friendName").value || "Someone";
-  const inputs = document.querySelectorAll(".q-input");
-
-  let answersHTML = "";
-  inputs.forEach((input, i) => {
-    if (input.value.trim() !== "") {
-      answersHTML += `<p>• <b>${questions[i]}</b><br>${input.value}</p>`;
-    }
-  });
-
-  document.getElementById("cardTitle").innerText = `Slam for ${name}`;
-  document.getElementById("answers").innerHTML = answersHTML;
-
-  document.getElementById("resultModal").style.display = "flex";
-
-  const sound = document.getElementById("submitSound");
-  if (sound) sound.play();
-}
-
-function closeModal() {
-  document.getElementById("resultModal").style.display = "none";
-  location.reload();
-}
-
-function downloadCard() {
-  html2canvas(document.querySelector(".storyCard")).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "SlamBloom.png";
-    link.href = canvas.toDataURL();
-    link.click();
-  });
-}
 </script>
 
 </body>
