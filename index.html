@@ -15,105 +15,84 @@ body {
 }
 
 /* THEMES */
-.dark {
-  background: #000;
-  color: #fff;
-}
-
-.pink {
-  background: linear-gradient(135deg,#ff2e88,#7b2ff7);
-  color: white;
-}
-
-.light {
-  background: #f4f4f4;
-  color: #000;
-}
+.dark { background:#000; color:#fff; }
+.pink { background:linear-gradient(135deg,#ff2e88,#7b2ff7); color:#fff; }
+.light { background:#f4f4f4; color:#000; }
 
 .container {
-  padding: 20px;
-  text-align: center;
+  padding:20px;
+  text-align:center;
 }
 
 input, select {
-  width: 90%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 10px;
-  border: none;
-  font-size: 16px;
+  width:90%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
 }
 
 button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 10px;
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  margin:10px;
 }
 
-.submit-btn {
-  background: #ff2e88;
-  color: white;
-}
+.submit-btn { background:#ff2e88; color:white; }
 
 /* RESULT CARD */
 .result-card {
-  display: none;
-  padding: 25px;
-  border-radius: 25px;
-  width: 85%;
-  margin: 30px auto;
-  background: linear-gradient(135deg,#ff2e88,#7b2ff7);
-  color: white;
+  display:none;
+  padding:25px;
+  border-radius:25px;
+  width:85%;
+  margin:30px auto;
+  background:linear-gradient(135deg,#ff2e88,#7b2ff7);
+  color:white;
 }
 
 .card-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  display:flex;
+  justify-content:space-between;
+  margin-top:20px;
 }
 
-.back-btn {
-  background: #333;
-  color: white;
-}
-
-.download-btn {
-  background: white;
-  color: #ff2e88;
-}
+.back-btn { background:#333; color:white; }
+.download-btn { background:white; color:#ff2e88; }
 
 /* POPUP */
 .popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
 }
 
 .popup-content {
-  background: #111;
-  color: white;
-  padding: 25px;
-  border-radius: 20px;
-  width: 85%;
-  max-width: 400px;
-  text-align: center;
-  animation: fadeIn 0.3s ease-in-out;
+  background:#111;
+  color:white;
+  padding:25px;
+  border-radius:20px;
+  width:85%;
+  max-width:400px;
+  text-align:center;
+  animation:fadeIn 0.3s ease-in-out;
 }
 
 .popup button {
-  margin-top: 15px;
-  background: #ff2e88;
-  color: white;
+  margin-top:15px;
+  background:#ff2e88;
+  color:white;
 }
 
 @keyframes fadeIn {
@@ -168,17 +147,32 @@ button {
 <div class="popup" id="confirmPopup" style="display:none;">
   <div class="popup-content">
     <h3>💣 FINAL – DRAMA BUTTON</h3>
+
+    <p><b>Should we tag them publicly? 😈</b></p>
+
+    <label style="display:block; margin:8px 0;">
+      <input type="radio" name="tagOption" value="YES expose them 😈">
+      YES expose them 😈
+    </label>
+
+    <label style="display:block; margin:8px 0;">
+      <input type="radio" name="tagOption" value="Post anonymously">
+      Post anonymously
+    </label>
+
+    <label style="display:block; margin:8px 0;">
+      <input type="radio" name="tagOption" value="I’m scared 😂">
+      I’m scared 😂
+    </label>
+
     <p>
-      Should we tag them publicly? 😈 <br><br>
-      • YES expose them 😈 <br>
-      • Post anonymously <br>
-      • I’m scared 😂 <br><br>
       Screenshot this now 🔥 <br>
       Tag @SlamBloom <br>
       Tag the person <br>
       Or DM us to tag them 👀
     </p>
-    <button onclick="showResult()">Continue 😈</button>
+
+    <button onclick="handleTagSelection()">Continue 😈</button>
   </div>
 </div>
 
@@ -220,7 +214,7 @@ function generateCard() {
 
   document.getElementById("cardTitle").innerHTML = "Slam for " + name;
 
-  document.getElementById("cardContent").innerHTML = `
+  window.generatedContent = `
   <b>In real life:</b> ${real} <br><br>
   <b>Dangerous:</b> ${dangerous} <br><br>
   <b>Biggest Red Flag:</b> ${red} <br><br>
@@ -237,9 +231,21 @@ function generateCard() {
   document.getElementById("confirmPopup").style.display = "flex";
 }
 
-function showResult() {
+function handleTagSelection() {
+  let selected = document.querySelector('input[name="tagOption"]:checked');
+
+  if (!selected) {
+    alert("Please select one option 😈");
+    return;
+  }
+
   document.getElementById("confirmPopup").style.display = "none";
   document.getElementById("mainPage").style.display = "none";
+
+  document.getElementById("cardContent").innerHTML =
+    window.generatedContent +
+    `<br><br><b>Tag Decision:</b> ${selected.value}`;
+
   document.getElementById("resultCard").style.display = "block";
 }
 
