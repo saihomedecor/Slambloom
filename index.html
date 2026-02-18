@@ -1,175 +1,177 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SlamBloom</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
-body{
-margin:0;
-font-family:'Poppins',sans-serif;
-background:#111;
-color:white;
-text-align:center;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  transition: 0.3s;
 }
 
-.container{
-max-width:500px;
-margin:auto;
-padding:20px;
+/* THEMES */
+.dark {
+  background: #000;
+  color: #fff;
 }
 
-input,textarea,select{
-width:100%;
-padding:12px;
-margin:8px 0;
-border-radius:12px;
-border:none;
-font-size:14px;
+.pink {
+  background: linear-gradient(135deg,#ff2e88,#7b2ff7);
+  color: white;
 }
 
-button{
-padding:12px 20px;
-border:none;
-border-radius:25px;
-background:#ff2e88;
-color:white;
-font-weight:600;
-margin-top:15px;
-cursor:pointer;
+.light {
+  background: #f4f4f4;
+  color: #000;
 }
 
-#resultModal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:black;
-justify-content:center;
-align-items:center;
-z-index:999;
+/* MAIN PAGE */
+.container {
+  padding: 20px;
+  text-align: center;
 }
 
-.storyCard{
-width:300px;
-height:533px;
-border-radius:25px;
-padding:20px;
-box-sizing:border-box;
-overflow:hidden;
-background:linear-gradient(180deg,#ff2e88,#7b2ff7);
-animation:fade 0.5s ease;
+input, select {
+  width: 90%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
 }
 
-@keyframes fade{
-from{opacity:0;transform:scale(0.8)}
-to{opacity:1;transform:scale(1)}
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px;
 }
 
-.answer{
-font-size:12px;
-text-align:left;
-margin:6px 0;
+.submit-btn {
+  background: #ff2e88;
+  color: white;
+}
+
+/* RESULT CARD */
+.result-card {
+  display: none;
+  padding: 25px;
+  border-radius: 25px;
+  width: 85%;
+  margin: 30px auto;
+  background: linear-gradient(135deg,#ff2e88,#7b2ff7);
+  color: white;
+}
+
+.result-card h2 {
+  margin-bottom: 20px;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.back-btn {
+  background: #333;
+  color: white;
+}
+
+.download-btn {
+  background: white;
+  color: #ff2e88;
 }
 </style>
 </head>
 
-<body>
+<body class="dark">
 
-<div class="container">
-<h2>🌸 SlamBloom – Expose Your Friend 😈</h2>
+<!-- MAIN PAGE -->
+<div class="container" id="mainPage">
+  <h1>🌸 SlamBloom – Expose Your Friend 😈</h1>
 
-<input id="friendName" placeholder="This slam is for...">
+  <select onchange="changeTheme(this.value)">
+    <option value="dark">Dark Theme</option>
+    <option value="pink">Pink Theme</option>
+    <option value="light">Light Theme</option>
+  </select>
 
-<select id="realType">
-<option>In real life they are...</option>
-<option>Innocent 😇</option>
-<option>Dangerous 😈</option>
-<option>Drama Queen 👑</option>
-<option>Savage 🔥</option>
-</select>
+  <input type="text" id="name" placeholder="This slam is for...">
+  <input type="text" id="real" placeholder="In real life they are...">
+  <input type="text" id="red" placeholder="Biggest Red Flag 🚩">
+  <input type="text" id="secret" placeholder="Secret nobody knows 🤫">
+  <input type="text" id="embarrass" placeholder="Embarrassing moment 😂">
+  <input type="text" id="crush" placeholder="Crush they hide 👀">
+  <input type="text" id="toxic" placeholder="Toxic trait ☠">
+  <input type="text" id="green" placeholder="Green flag 🌿">
 
-<div id="questions"></div>
-
-<button onclick="generateCard()">🔥 Expose Now</button>
+  <button class="submit-btn" onclick="generateCard()">Generate Slam</button>
 </div>
 
-<div id="resultModal">
-<div class="storyCard" id="storyCard">
-<h3 id="cardTitle"></h3>
-<div id="answers"></div>
-<button onclick="downloadCard()">📥 Download</button>
-<button onclick="closeModal()">Make Another 😈</button>
-</div>
-</div>
+<!-- RESULT CARD -->
+<div class="result-card" id="resultCard">
+  <h2 id="cardTitle"></h2>
+  <p id="cardContent"></p>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <div class="card-buttons">
+    <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    <button class="download-btn" onclick="downloadCard()">⬇ Download</button>
+  </div>
+</div>
 
 <script>
 
-const questionList = [
-"Biggest Red Flag 🚩",
-"Secret nobody knows 🤫",
-"Embarrassing moment 😂",
-"Crush they hide 👀",
-"Toxic trait ☠️",
-"Green flag 🌿",
-"Hidden talent 🎭",
-"Most dramatic scene 🎬",
-"Fake personality 🤥",
-"Biggest lie 😬",
-"Late night habit 🌙",
-"Worst fashion 👗",
-"Best quality ❤️",
-"Secret nickname 🫢",
-"Final confession 💌"
-];
-
-const qContainer = document.getElementById("questions");
-
-questionList.forEach((q,i)=>{
-let area = document.createElement("textarea");
-area.placeholder = q;
-area.className = "q-input";
-area.id = "q"+i;
-qContainer.appendChild(area);
-});
-
-function generateCard(){
-
-const name = document.getElementById("friendName").value || "Someone";
-const type = document.getElementById("realType").value;
-
-let answerHTML = `<div class="answer"><b>${type}</b></div>`;
-
-questionList.forEach((q,i)=>{
-let val = document.getElementById("q"+i).value;
-if(val.trim() !== ""){
-answerHTML += `<div class="answer"><b>${q}</b><br>${val}</div>`;
-}
-});
-
-document.getElementById("cardTitle").innerText = "Slam for "+name;
-document.getElementById("answers").innerHTML = answerHTML;
-
-document.getElementById("resultModal").style.display = "flex";
+function changeTheme(theme) {
+  document.body.className = theme;
 }
 
-function closeModal(){
-document.getElementById("resultModal").style.display = "none";
-location.reload();
+function generateCard() {
+
+  let name = document.getElementById("name").value;
+  let real = document.getElementById("real").value;
+  let red = document.getElementById("red").value;
+  let secret = document.getElementById("secret").value;
+  let embarrass = document.getElementById("embarrass").value;
+  let crush = document.getElementById("crush").value;
+  let toxic = document.getElementById("toxic").value;
+  let green = document.getElementById("green").value;
+
+  document.getElementById("cardTitle").innerHTML = "Slam for " + name;
+
+  document.getElementById("cardContent").innerHTML = `
+  <b>In real life:</b> ${real} <br><br>
+  <b>Biggest Red Flag:</b> ${red} <br><br>
+  <b>Secret nobody knows:</b> ${secret} <br><br>
+  <b>Embarrassing moment:</b> ${embarrass} <br><br>
+  <b>Crush they hide:</b> ${crush} <br><br>
+  <b>Toxic trait:</b> ${toxic} <br><br>
+  <b>Green flag:</b> ${green}
+  `;
+
+  document.getElementById("mainPage").style.display = "none";
+  document.getElementById("resultCard").style.display = "block";
 }
 
-function downloadCard(){
-html2canvas(document.getElementById("storyCard")).then(canvas=>{
-let link=document.createElement("a");
-link.download="SlamBloom.png";
-link.href=canvas.toDataURL();
-link.click();
-});
+function goBack() {
+  document.getElementById("resultCard").style.display = "none";
+  document.getElementById("mainPage").style.display = "block";
+}
+
+function downloadCard() {
+  html2canvas(document.querySelector("#resultCard")).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "slam.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
 }
 
 </script>
