@@ -6,168 +6,137 @@
 <title>SlamBloom Challenge</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f4f4;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
 }
 
-.container {
-  width: 95%;
-  max-width: 500px;
-  background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+.container{
+  width:95%;
+  max-width:500px;
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  display:none;
 }
 
-h2 {
-  text-align: center;
+h2{text-align:center;}
+
+input,textarea,select{
+  width:100%;
+  padding:8px;
+  margin:8px 0;
+  border-radius:6px;
+  border:1px solid #ccc;
 }
 
-input, textarea, select {
-  width: 100%;
-  padding: 8px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+button{
+  padding:10px 20px;
+  border-radius:25px;
+  border:1px solid #000;
+  background:transparent;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-button {
-  padding: 10px 20px;
-  border-radius: 25px;
-  border: 1px solid #000;
-  background: transparent;
-  cursor: pointer;
-  transition: 0.3s;
+button:hover{
+  background:#000;
+  color:#fff;
 }
 
-button:hover {
-  background: #000;
-  color: #fff;
+/* POPUP */
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
 }
 
-.hidden {
-  display: none;
+.popup-content{
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
 }
 
-/* Popups */
-.popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* RESULT */
+.result-card{
+  margin-top:20px;
+  padding:20px;
+  border-radius:12px;
+  background:#fafafa;
+  position:relative;
+  display:none;
 }
 
-.popup-content {
-  background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
+.brand-header{
+  font-size:13px;
+  opacity:0.7;
+  margin-bottom:10px;
 }
 
-/* Result Card */
-.result-card {
-  margin-top: 15px;
-  padding: 20px;
-  border-radius: 12px;
-  background: #fafafa;
-  position: relative;
+.watermark{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:50px;
+  opacity:0.05;
+  pointer-events:none;
 }
 
-.brand-header {
-  font-size: 13px;
-  opacity: 0.7;
-  margin-bottom: 10px;
+.brand-footer{
+  margin-top:20px;
+  font-size:13px;
+  border-top:1px solid #ddd;
+  padding-top:10px;
 }
 
-.watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  font-size: 50px;
-  opacity: 0.05;
-  pointer-events: none;
+/* PREMIUM CTA */
+.premium-cta{
+  margin-top:20px;
+  text-align:center;
+  font-size:14px;
 }
 
-.brand-footer {
-  margin-top: 20px;
-  font-size: 13px;
-  border-top: 1px solid #ddd;
-  padding-top: 10px;
+.cta-divider{
+  width:60px;
+  height:2px;
+  background:linear-gradient(to right,#999,#333);
+  margin:0 auto 10px auto;
 }
 
-/* Premium CTA */
-.premium-cta {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
+.cta-feature span{
+  font-weight:bold;
 }
 
-.cta-divider {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(to right,#999,#333);
-  margin: 0 auto 10px auto;
+/* SHARE */
+.share-container{
+  margin-top:20px;
+  text-align:center;
 }
 
-.cta-feature span {
-  font-weight: bold;
+.share-buttons{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-/* Share */
-.share-container {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.share-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.copy-msg {
-  font-size: 12px;
-  color: green;
-}
-
-/* Dark Mode */
-body.dark {
-  background: #111;
-  color: #fff;
-}
-
-body.dark .container {
-  background: #1c1c1c;
-}
-
-body.dark input, 
-body.dark textarea,
-body.dark select {
-  background: #333;
-  color: #fff;
-  border: 1px solid #555;
-}
-
-body.dark button {
-  border: 1px solid #fff;
-  color: #fff;
-}
-
-body.dark button:hover {
-  background: #fff;
-  color: #000;
+.copy-msg{
+  font-size:12px;
+  color:green;
 }
 </style>
 </head>
@@ -183,7 +152,7 @@ body.dark button:hover {
   </div>
 </div>
 
-<div class="container hidden" id="mainContainer">
+<div class="container" id="mainContainer">
 
 <h2>Slam Challenge</h2>
 
@@ -201,8 +170,10 @@ body.dark button:hover {
 
 <button onclick="showDrama()">Submit</button>
 
+</div>
+
 <!-- DRAMA POPUP -->
-<div class="popup hidden" id="dramaPopup">
+<div class="popup" id="dramaPopup" style="display:none;">
   <div class="popup-content">
     <h3>Are you ready for the result? 😈</h3>
     <button onclick="generateResult()">Show Result</button>
@@ -210,7 +181,7 @@ body.dark button:hover {
 </div>
 
 <!-- RESULT -->
-<div class="result-card hidden" id="resultCard">
+<div class="container result-card" id="resultCard">
 
 <div class="watermark">@YourPageName</div>
 
@@ -245,56 +216,55 @@ body.dark button:hover {
 
 </div>
 
-</div>
-
 <script>
-function startChallenge() {
-  document.getElementById("startPopup").style.display = "none";
-  document.getElementById("mainContainer").classList.remove("hidden");
+function startChallenge(){
+  document.getElementById("startPopup").style.display="none";
+  document.getElementById("mainContainer").style.display="block";
 }
 
-function showDrama() {
-  document.getElementById("dramaPopup").classList.remove("hidden");
+function showDrama(){
+  document.getElementById("dramaPopup").style.display="flex";
 }
 
-function generateResult() {
-  document.getElementById("dramaPopup").classList.add("hidden");
+function generateResult(){
+  document.getElementById("dramaPopup").style.display="none";
 
-  const name = document.getElementById("friendName").value;
-  const q1 = document.getElementById("q1").value;
-  const q2 = document.getElementById("q2").value;
-  const q3 = document.getElementById("q3").value;
-  const tag = document.getElementById("publicTag").value;
+  const name=document.getElementById("friendName").value || "Your Friend";
+  const q1=document.getElementById("q1").value;
+  const q2=document.getElementById("q2").value;
+  const q3=document.getElementById("q3").value;
+  const tag=document.getElementById("publicTag").value;
 
-  document.getElementById("resultTitle").innerText = name + "'s Results";
-  document.getElementById("resultContent").innerHTML =
-    "<b>One Word:</b> " + q1 + "<br>" +
-    "<b>Red Flag:</b> " + q2 + "<br>" +
-    "<b>Secret Talent:</b> " + q3 + "<br><br>" +
-    "<b>Public Tag:</b> " + tag;
+  document.getElementById("resultTitle").innerText=name+"'s Results";
+  document.getElementById("resultContent").innerHTML=
+    "<b>One Word:</b> "+q1+"<br>"+
+    "<b>Red Flag:</b> "+q2+"<br>"+
+    "<b>Secret Talent:</b> "+q3+"<br><br>"+
+    "<b>Public Tag:</b> "+tag;
 
-  document.getElementById("resultCard").classList.remove("hidden");
+  document.getElementById("mainContainer").style.display="none";
+  document.getElementById("resultCard").style.display="block";
 }
 
-function getShareMessage() {
-  return "I just tried this savage challenge 😈🔥 Try it now: " + window.location.href;
+function getShareMessage(){
+  return "I just tried this savage challenge 😈🔥 Try it now: "+window.location.href;
 }
 
-function shareWhatsApp() {
-  window.open("https://wa.me/?text=" + encodeURIComponent(getShareMessage()), "_blank");
+function shareWhatsApp(){
+  window.open("https://wa.me/?text="+encodeURIComponent(getShareMessage()),"_blank");
 }
 
-function shareInstagram() {
-  window.open("https://www.instagram.com/", "_blank");
+function shareInstagram(){
+  window.open("https://www.instagram.com/","_blank");
   alert("Paste the copied link in Instagram DM 😉");
 }
 
-function copyLink() {
+function copyLink(){
   navigator.clipboard.writeText(window.location.href);
-  document.getElementById("copyMsg").innerText = "Link copied!";
-  setTimeout(() => {
-    document.getElementById("copyMsg").innerText = "";
-  }, 2000);
+  document.getElementById("copyMsg").innerText="Link copied!";
+  setTimeout(()=>{
+    document.getElementById("copyMsg").innerText="";
+  },2000);
 }
 </script>
 
