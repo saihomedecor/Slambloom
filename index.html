@@ -7,38 +7,38 @@
 <body>
 
 <div class="container">
+
   <h1>🌸 SlamBloom</h1>
   <h2>Expose Your Friend 😈</h2>
 
   <form id="slamForm">
-    
-    <label>This slam is for:</label>
-    <input type="text" required>
 
-    <label>Their Instagram ID:</label>
-    <input type="text">
+    <input type="text" id="target" placeholder="This slam is for..." required>
 
-    <label>In real life they are:</label>
-    <select>
+    <select id="personality">
+      <option value="">In real life they are...</option>
       <option>Main Character 🎬</option>
       <option>Drama Machine 🎭</option>
       <option>Certified Clown 🤡</option>
       <option>Secret Romantic 💕</option>
+      <option>Attention Seeker 👀</option>
     </select>
 
-    <label>Biggest Red Flag 🚩</label>
-    <input type="text">
+    <input type="text" id="redflag" placeholder="Biggest Red Flag 🚩">
 
-    <label>One thing I never told you 👀</label>
-    <textarea rows="3"></textarea>
+    <textarea id="confession" placeholder="One thing I never told you 👀"></textarea>
 
     <button type="submit">🔥 Expose Now</button>
 
   </form>
 
-  <div id="result" class="hidden">
-    <h3>🌸 Expose Completed!</h3>
-    <p>Screenshot this & tag @SlamBloom 😈</p>
+  <div id="resultCard" class="hidden">
+    <h2 id="resultName"></h2>
+    <p id="resultPersonality"></p>
+    <p id="resultRedflag"></p>
+    <p id="resultConfession"></p>
+
+    <button onclick="resetForm()">Make Another 😈</button>
   </div>
 
 </div>
