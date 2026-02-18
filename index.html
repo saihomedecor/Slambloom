@@ -119,11 +119,26 @@ color:black;
 <button onclick="generateCard()">🔥 Expose Now</button>
 </div>
 
+<div id="resultModal" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+justify-content:center;
+align-items:center;
+z-index:999;
+">
+
 <div id="storyCard" class="storyCard">
 <h3 id="cardTitle"></h3>
 <div id="answers"></div>
 <button onclick="downloadCard()">📥 Download</button>
-<button onclick="location.reload()">Make Another 😈</button>
+<button onclick="closeModal()">Make Another 😈</button>
+</div>
+
 </div>
 
 <audio id="bgMusic" loop>
